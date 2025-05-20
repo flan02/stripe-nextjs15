@@ -36,3 +36,5 @@ cvc: `123`
 - Select from diffent payment methods
 
 [choose payments](https://dashboard.stripe.com/test/settings/payment_methods/pmc_1RPoAhPOIhH20hF8eNgkKh7b)
+
+[handle user rights](https://dashboard.stripe.com/test/settings/billing/portal)
