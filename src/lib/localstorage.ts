@@ -7,6 +7,7 @@ export type User = {
   isLogged: boolean
   isSubscribed: boolean
   customerId?: string | null
+  sessionStripeId?: string | null
 }
 
 const FAKE_USER: User = {
@@ -15,7 +16,8 @@ const FAKE_USER: User = {
   email: 'chanivetdan1988@hotmail.com',
   isLogged: true,
   isSubscribed: false,
-  customerId: null
+  customerId: null,
+  sessionStripeId: null,
 }
 
 // Create and save in localStorage
@@ -50,6 +52,7 @@ export const removeSubscription = (): User | null => {
       ...user,
       isSubscribed: false,
       customerId: '',
+      sessionStripeId: null
     }
     localStorage.setItem('user', JSON.stringify(updatedUser))
     return updatedUser

@@ -27,10 +27,7 @@ export const subscribe = async ({ userId, email, priceId }: Props) => {
     let customerId = isCustomer.data.length > 0 ? isCustomer.data[0]?.id : null
     if (!customerId) {
       const customer = await stripe.customers.create({
-        email,
-        metadata: {
-          userId
-        }
+        email
       })
       customerId = customer.id
     }
@@ -44,13 +41,16 @@ export const subscribe = async ({ userId, email, priceId }: Props) => {
           quantity: 1
         }
       ],
+      metadata: {
+        userId
+      },
       mode: 'subscription',
       billing_address_collection: 'required',
       customer_update: {
         name: 'auto',
         address: 'auto'
       },
-      success_url: `${process.env.NEXT_PUBLIC_URL}/payments/success?customerId=${customerId}`,
+      success_url: `${process.env.NEXT_PUBLIC_URL}/payments/success?customerId=${customerId}&sessionId={CHECKOUT_SESSION_ID}`, // ! Stripe provides a sessionId in the URL
       cancel_url: `${process.env.NEXT_PUBLIC_URL}/payments/cancel`
     })
 

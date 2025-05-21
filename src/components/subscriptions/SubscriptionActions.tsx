@@ -21,8 +21,9 @@ export const ButtonSubscribe = (props: Props) => {
 
 
 export const ButtonEditPayments = (props: Props) => {
+  const router: AppRouterInstance = useRouter()
   return (
-    <Button onClick={editPaymentDetails}>Edit Payments</Button>
+    <Button onClick={() => editPaymentDetails(router)}>Edit Payments</Button>
   )
 }
 

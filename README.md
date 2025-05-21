@@ -38,3 +38,14 @@ cvc: `123`
 [choose payments](https://dashboard.stripe.com/test/settings/payment_methods/pmc_1RPoAhPOIhH20hF8eNgkKh7b)
 
 [handle user rights](https://dashboard.stripe.com/test/settings/billing/portal)
+
+### Webhooks development environment
+
+[docs](https://docs.stripe.com/stripe-cli?install-method=windows)
+
+> Commands
+
+```bash
+stripe login
+stripe listen --forward-to http://localhost:3000/api/webhook/stripe
+```

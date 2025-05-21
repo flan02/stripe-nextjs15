@@ -17,7 +17,12 @@ import { ButtonEditPayments, ButtonSubscribe } from './SubscriptionActions'
 
 const SandboxStripe = () => {
   const [user, setUser] = useState<User | null>(null)
+  type StripeSessionData = {
+    [key: string]: any;
+    error?: string;
+  };
 
+  const [data, setData] = useState<StripeSessionData | null>(null)
   const handleCreateUser = () => {
     createFakeUser()
     const newUser = getUser()
@@ -39,15 +44,24 @@ const SandboxStripe = () => {
     }
 
     window.addEventListener("storage", checkUser)
-
     return () => window.removeEventListener("storage", checkUser)
   }, [])
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!user?.sessionStripeId) {
+        setData(null)
+        return
+      }
+      const response = await fetch(`/api/checkout-session?sessionId=${user.sessionStripeId}`)
+      const result = await response.json()
+      setData(result)
+    }
+    fetchData()
+  }, [user])
 
-
-  console.log(user);
   return (
-    <section className='space-y-12'>
+    <section className='space-y-12 overflow-y-scroll'>
       <div className='flex flex-col items-center space-y-2 p-6 rounded-md text-left bg-black text-white'>
         <h2>To start you need to create a fake user to simulate a session in our system</h2>
         <div className='space-x-2'>
@@ -117,9 +131,16 @@ const SandboxStripe = () => {
           }
         </div>
       }
-
-
-
+      {
+        data && user?.isLogged && !data?.error
+          ? <div><pre className='h-[350px] bg-slate-800 text-white px-4 py-6 overflow-y-scroll text-xs text-left'>{JSON.stringify(data, null, 2)}</pre></div>
+          : null
+      }
+      {
+        !data && user?.isLogged
+          ? <p>no session subscription founded.</p>
+          : null
+      }
     </section>
   )
 }

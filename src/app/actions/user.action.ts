@@ -1,5 +1,7 @@
 "use server"
 
+// * We need this action to save and retrieve user's info in a database
+
 //import User from "@/models/user.model"
 // import connectDB from "@/utils/db"
 
