@@ -50,7 +50,7 @@ export const subscribe = async ({ userId, email, priceId }: Props) => {
         name: 'auto',
         address: 'auto'
       },
-      success_url: `${process.env.NEXT_PUBLIC_URL}/payments/success`,
+      success_url: `${process.env.NEXT_PUBLIC_URL}/payments/success?customerId=${customerId}`,
       cancel_url: `${process.env.NEXT_PUBLIC_URL}/payments/cancel`
     })
 
