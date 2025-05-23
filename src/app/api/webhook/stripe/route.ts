@@ -59,6 +59,27 @@ export async function POST(request: NextRequest) {
     // if(!updatedUser) = return error
     // else console.log('User updated successfully', updatedUser)
 
+    // console.log('Refreshing page...');
+    // revalidatePath("/subscriptions", "layout")
+
+  } else if (eventType === 'customer.session.deleted') {
+
+    const subscription = event.data.object as Stripe.Subscription
+    const customerId = subscription.customer // id to find the user in db
+    const priceId = subscription.items.data[0].price.id
+
+    // if (priceId != process.env.NEXT_PUBLIC_STRIPE_MEMEBERSHIP_PRICE_ID!) {
+    //   return NextResponse.json('Price ID does not match', { status: 400 });
+    // }
+    // updatedUser = save in this var a mongodb fc in which isSubscribed to false (db)
+
+    // if(!updatedUser){
+    //   console.log("No user found", customerId);
+    // }else {
+    //   console.log('Membership cancelled successfully', updatedUser);
+    // }
+    // console.log('Refreshing page...');
+    // revalidatePath("/cancel", "layout")
 
   }
 

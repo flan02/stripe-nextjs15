@@ -3,6 +3,7 @@ import CheckoutPage from "@/components/stripe/CheckoutPage"
 import { convertToSubcurrency } from "@/lib/utils"
 import { Elements } from "@stripe/react-stripe-js"
 import { loadStripe } from "@stripe/stripe-js"
+import Image from "next/image"
 
 if (process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY === undefined) {
   throw new Error("NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY is not defined")
@@ -15,11 +16,13 @@ const Main = (props: Props) => {
   const amount: number = 9.99
   return (
 
-    <div className="max-w-6xl mx-auto p-10 text-white text-center border m-10 rounded-md bg-gradient-to-tr from-blue-500 to-purple-500">
-      <div className="mb-12">
-        <h1 className="text-4xl font-extrabold mb-2">Sonny</h1>
-        <h2 className="text-2xl">has requested</h2>
-        <span className="font-bold">${amount}</span>
+    <div className="max-w-6xl space-y-6 min-h-screen mx-auto text-white text-center border rounded-md bg-gradient-to-tr from-gray-950 to-blue-400">
+      <br /><br />
+      <div className="space-y-6 mx-auto">
+        <h1 className="text-4xl font-extrabold mb-2">Fake Product don&#39;t buy it</h1>
+        <h2 className="text-xl">has requested</h2>
+        <Image className="mx-auto" src="/pirate-parrot.jpg" alt="pirate-parrot" width={300} height={300} />
+        <span className="font-bold text-3xl">${amount}</span>
       </div>
 
       <Elements

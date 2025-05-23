@@ -51,11 +51,42 @@ export const subscribe = async ({ userId, email, priceId }: Props) => {
         address: 'auto'
       },
       success_url: `${process.env.NEXT_PUBLIC_URL}/payments/success?customerId=${customerId}&sessionId={CHECKOUT_SESSION_ID}`, // ! Stripe provides a sessionId in the URL
-      cancel_url: `${process.env.NEXT_PUBLIC_URL}/payments/cancel`
+      cancel_url: `${process.env.NEXT_PUBLIC_URL}/payments/cancel?session_id={CHECKOUT_SESSION_ID}`
     })
 
     return url
   } catch (error) {
     console.error(error)
+  }
+}
+
+
+export const cancelSubscription = async (subscriptionId: string) => {
+  if (!subscriptionId) throw new Error("Missing subscription ID")
+
+  try {
+    const deSubscription = await stripe.subscriptions.update(subscriptionId, {
+      cancel_at_period_end: true,
+    })
+    console.log("Subscription cancelled:", deSubscription);
+
+    return { message: "Subscription cancelled successfully", status: 200 }
+  } catch (error) {
+    console.error("Failed to cancel subscription:", error)
+    throw new Error("Failed to desubscribe...")
+  }
+}
+
+
+export const deletedSubscription = async (subscriptionId: string) => {
+  if (!subscriptionId) throw new Error("Missing subscription ID")
+  try {
+
+    const cancelSubscription = await stripe.subscriptions.cancel(subscriptionId);
+    console.log("Subscription cancelled:", cancelSubscription);
+    return { message: "Subscription cancelled successfully", status: 200 }
+  } catch (error) {
+    console.log(error);
+    throw new Error("Failed to cancel subscription...")
   }
 }

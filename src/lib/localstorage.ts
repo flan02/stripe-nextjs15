@@ -8,6 +8,7 @@ export type User = {
   isSubscribed: boolean
   customerId?: string | null
   sessionStripeId?: string | null
+  subscriptionStripeId?: string | null
 }
 
 const FAKE_USER: User = {
@@ -18,6 +19,7 @@ const FAKE_USER: User = {
   isSubscribed: false,
   customerId: null,
   sessionStripeId: null,
+  subscriptionStripeId: null
 }
 
 // Create and save in localStorage

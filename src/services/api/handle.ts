@@ -1,11 +1,7 @@
 'use client'
-import { subscribe } from "@/app/actions/stripe.actions"
+import { cancelSubscription, deletedSubscription, subscribe } from "@/app/actions/stripe.actions"
 import { getUser } from "@/lib/localstorage";
 import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.shared-runtime";
-
-
-
-
 
 
 
@@ -18,6 +14,10 @@ export const editPaymentDetails = async (router: AppRouterInstance) => {
     throw new Error('Failed to edit payment details')
   }
 }
+
+
+
+
 
 export const clickSubscribe = async (router: AppRouterInstance) => {
   const user = getUser()
@@ -42,3 +42,37 @@ export const clickSubscribe = async (router: AppRouterInstance) => {
 }
 
 
+export const desubscription = async (router: AppRouterInstance) => {
+  const user = getUser()
+  if (!user?.isLogged || !user.subscriptionStripeId) {
+    throw new Error('Subscription not found...')
+  }
+
+  try {
+    const result = await cancelSubscription(user.subscriptionStripeId)
+    router.push(`${process.env.NEXT_PUBLIC_URL}/payments/cancel?sessionId=${user.sessionStripeId}`)
+
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to cancel subscription')
+  }
+
+}
+
+
+
+export const removeSubscription = async (router: AppRouterInstance) => {
+  const user = getUser()
+  if (!user?.isLogged || !user.subscriptionStripeId) {
+    throw new Error('Subscription not found...')
+  }
+
+  try {
+    const result = await deletedSubscription(user.subscriptionStripeId)
+    router.push(`${process.env.NEXT_PUBLIC_URL}/payments/cancel?sessionId=${user.sessionStripeId}`)
+
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to cancel subscription')
+  }
+}

@@ -69,7 +69,7 @@ const CheckoutPage = ({ amount }: Props) => {
 
   if (!clientSecret || !stripe || !elements) {
     return (
-      <div className='flex items-center justify-center'>
+      <div className='flex items-center justify-center w-[80%] mx-auto'>
         <div role='status' className='inline-block h-8 w-8 animate-spin rounded-full border-4 border-solid border-current border-t-transparent text-blue-600 motion-reduce:animate-[spin_1.5s_linear_infinite] dar:text-white'>
           <span className='!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]'>Loading...</span>
         </div>
@@ -78,7 +78,7 @@ const CheckoutPage = ({ amount }: Props) => {
   }
 
   return (
-    <form className='space-y-4' onSubmit={handleSubmit}>
+    <form className='space-y-4  w-[80%] mx-auto' onSubmit={handleSubmit}>
       {
         clientSecret
           ? <PaymentElement />
@@ -90,7 +90,7 @@ const CheckoutPage = ({ amount }: Props) => {
           : null
       }
       <Button disabled={!stripe || isLoading}>
-        {!isLoading ? `Pay ${amount}` : "Processing..."}
+        {!isLoading ? `Process` : "Processing..."}
       </Button>
     </form>
   )

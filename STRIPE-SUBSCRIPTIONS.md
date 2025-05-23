@@ -17,7 +17,7 @@ Useful for associating future purchases, updating user data, or retrieving custo
 ## 3. `subscription`
 
 `sub_1RRKZkPOIhH20hF8DxXA4Z98`
-🔑 This is the subscription ID. You can use it to verify subscription status, renewals, or cancellations.
+🔑 This is the subscription ID. You can use it to verify subscription status, renewals, or cancellations. Don't forget to save this value in db because you will need to validate the suscription status later.
 
 ---
 
